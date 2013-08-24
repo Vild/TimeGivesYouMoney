@@ -1,7 +1,7 @@
 TimeGivesYouMoney
 =================
 
-Gives players money every time interval
+Gives players money every minute
 
 Build
 -----

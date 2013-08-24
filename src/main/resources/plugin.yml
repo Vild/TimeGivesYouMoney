@@ -1,6 +1,6 @@
 name: TimeGivesYouMoney
 version: 1.0.0
-description: Gives players money every time interval,
+description: Gives players money every minute
 author: WildN00b
 authors: [WildN00b]
 main: me.wildn00b.timegivesyoumoney.TimeGivesYouMoney
