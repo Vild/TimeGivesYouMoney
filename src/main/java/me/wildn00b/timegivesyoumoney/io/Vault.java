@@ -69,9 +69,9 @@ public class Vault {
   public String GetGroup(Player player) {
     final ArrayList<String> groups = tgym.Settings.GetAvailableGroups();
     for (final String group : groups)
-      if (HasPermissions(player, "tgym.group." + group))
+      if (!group.equalsIgnoreCase("default")
+          && HasPermissions(player, "tgym.group." + group))
         return group;
-
     return "Default";
   }
 

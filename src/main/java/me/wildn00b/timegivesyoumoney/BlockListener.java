@@ -78,7 +78,6 @@ public class BlockListener implements Listener {
     if (!event.isCancelled() && block != null) {
       if (event.getAction() == Action.LEFT_CLICK_BLOCK
           || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-
         if (block.getType() == Material.STONE_BUTTON
             || block.getType() == Material.WOOD_BUTTON
             || block.getType() == Material.LEVER) {
@@ -88,14 +87,11 @@ public class BlockListener implements Listener {
         } else if (block.getType() == Material.WALL_SIGN
             || block.getType() == Material.SIGN_POST)
           testSign(event.getPlayer(), block);
-      } else if (event.getAction() == Action.PHYSICAL) {
-        if (block.getType() == Material.STONE_PLATE
-            || block.getType() == Material.WOOD_PLATE) {
-          for (BlockFace bf : BlockFace.values())
-            if (testSign(event.getPlayer(), block.getRelative(bf)))
-              return;
-        }
-      }
+      } else if (event.getAction() == Action.PHYSICAL
+          && (block.getType() == Material.STONE_PLATE || block.getType() == Material.WOOD_PLATE))
+        for (BlockFace bf : BlockFace.values())
+          if (testSign(event.getPlayer(), block.getRelative(bf)))
+            return;
     }
   }
 

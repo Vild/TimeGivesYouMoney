@@ -13,7 +13,7 @@ commands:
     aliases: [TimeGivesYouMoney]
     usage: Syntax error! Simply type /<command> to see the help menu.
 permissions:
-  tgym.*:
+  tgym.all:
     description: All TimeGivesYouMoney permissions
     default: op
     children:
