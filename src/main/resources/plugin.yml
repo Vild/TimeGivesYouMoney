@@ -1,0 +1,46 @@
+name: TimeGivesYouMoney
+version: 1.0.0
+description: Gives players money every time interval,
+author: WildN00b
+authors: [WildN00b]
+main: me.wildn00b.timegivesyoumoney.TimeGivesYouMoney
+database: false
+depend: [Vault]
+
+commands:
+  tgym:
+    desciption: TimeGivesYouMoney
+    aliases: [TimeGivesYouMoney]
+    usage: Syntax error! Simply type /<command> to see the help menu.
+permissions:
+  tgym.*:
+    description: All TimeGivesYouMoney permissions
+    default: op
+    children:
+      tgym.cashout.self: true
+      tgym.cashout.other: true
+      tgym.add: true
+      tgym.remove: true
+      tgym.atm.use: true
+      tgym.atm.create: true
+
+  tgym.cashout.self:
+    description: Allows the player to cashout their own money
+    default: false
+  tgym.cashout.other:
+    description: Allows the player to cashout their others money for them
+    default: false
+  tgym.add:
+    description: Allows the player to add money to players accounts
+    default: false
+  tgym.remove:
+    description: Allows the player to remove money from players accounts
+    default: false
+
+  tgym.atm.use:
+    description: Allows the player to use a ATM.
+    default: false
+  tgym.atm.create:
+    description: Allows the player to create a ATM
+    default: false
+    
