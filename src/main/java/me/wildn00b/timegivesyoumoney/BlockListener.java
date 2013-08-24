@@ -35,7 +35,7 @@ public class BlockListener implements Listener {
 
       if (sign.getLine(0).equals(
           "" + ChatColor.GRAY + ChatColor.BOLD + "[" + ChatColor.YELLOW + "ATM"
-              + ChatColor.GRAY + "]")
+              + ChatColor.GRAY + "]" + ChatColor.GRAY + ChatColor.BOLD)
           && sign.getLine(1).equals(
               "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD)
           && sign.getLine(2).equals(
@@ -58,7 +58,7 @@ public class BlockListener implements Listener {
 
       if (sign.getLine(0).equals(
           "" + ChatColor.GRAY + ChatColor.BOLD + "[" + ChatColor.YELLOW + "ATM"
-              + ChatColor.GRAY + "]")
+              + ChatColor.GRAY + "]" + ChatColor.GRAY + ChatColor.BOLD)
           && sign.getLine(1).equals(
               "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD)
           && sign.getLine(2).equals(
@@ -72,16 +72,15 @@ public class BlockListener implements Listener {
 
   @EventHandler(priority = EventPriority.HIGHEST)
   public void onPlayerInteract(PlayerInteractEvent event) {
-    Sign sign = null;
-    Block block = event.getClickedBlock();
+    final Block block = event.getClickedBlock();
 
-    if (!event.isCancelled() && block != null) {
+    if (!event.isCancelled() && block != null)
       if (event.getAction() == Action.LEFT_CLICK_BLOCK
           || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
         if (block.getType() == Material.STONE_BUTTON
             || block.getType() == Material.WOOD_BUTTON
             || block.getType() == Material.LEVER) {
-          for (BlockFace bf : BlockFace.values())
+          for (final BlockFace bf : BlockFace.values())
             if (testSign(event.getPlayer(), block.getRelative(bf)))
               return;
         } else if (block.getType() == Material.WALL_SIGN
@@ -89,9 +88,21 @@ public class BlockListener implements Listener {
           testSign(event.getPlayer(), block);
       } else if (event.getAction() == Action.PHYSICAL
           && (block.getType() == Material.STONE_PLATE || block.getType() == Material.WOOD_PLATE))
-        for (BlockFace bf : BlockFace.values())
+        for (final BlockFace bf : BlockFace.values())
           if (testSign(event.getPlayer(), block.getRelative(bf)))
             return;
+  }
+
+  @EventHandler(priority = EventPriority.HIGHEST)
+  public void onSignChange(SignChangeEvent event) {
+    if (event.getLine(0).equalsIgnoreCase("[ATM]")
+        && tgym.Vault.HasPermissions(event.getPlayer(), "tgym.atm.create")) {
+      event.setLine(0, "" + ChatColor.GRAY + ChatColor.BOLD + "["
+          + ChatColor.YELLOW + "ATM" + ChatColor.GRAY + "]" + ChatColor.GRAY
+          + ChatColor.BOLD);
+      event.setLine(1, "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD);
+      event.setLine(2, "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD);
+      event.setLine(3, "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD);
     }
   }
 
@@ -101,10 +112,10 @@ public class BlockListener implements Listener {
         || block.getType() == Material.SIGN_POST)
       sign = (Sign) block.getState();
 
-    if (sign != null) {
+    if (sign != null)
       if (sign.getLine(0).equals(
           "" + ChatColor.GRAY + ChatColor.BOLD + "[" + ChatColor.YELLOW + "ATM"
-              + ChatColor.GRAY + "]")
+              + ChatColor.GRAY + "]" + ChatColor.GRAY + ChatColor.BOLD)
           && sign.getLine(1).equals(
               "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD)
           && sign.getLine(2).equals(
@@ -122,19 +133,6 @@ public class BlockListener implements Listener {
         }
         return true;
       }
-    }
     return false;
-  }
-
-  @EventHandler(priority = EventPriority.HIGHEST)
-  public void onSignChange(SignChangeEvent event) {
-    if (event.getLine(0).equalsIgnoreCase("[ATM]")
-        && tgym.Vault.HasPermissions(event.getPlayer(), "tgym.atm.create")) {
-      event.setLine(0, "" + ChatColor.GRAY + ChatColor.BOLD + "["
-          + ChatColor.YELLOW + "ATM" + ChatColor.GRAY + "]");
-      event.setLine(1, "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD);
-      event.setLine(2, "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD);
-      event.setLine(3, "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD);
-    }
   }
 }
