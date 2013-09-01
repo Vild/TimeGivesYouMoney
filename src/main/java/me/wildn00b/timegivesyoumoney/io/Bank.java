@@ -67,7 +67,7 @@ public class Bank {
         else
           tmpval = (Double) tmpobj;
 
-        if (day.get(player) + money > tmpval)
+        if (tmpval != -1 && day.get(player) + money > tmpval)
           money = day.get(player) + money - tmpval;
       }
 
@@ -81,12 +81,17 @@ public class Bank {
         else
           tmpval = (Double) tmpobj;
 
-        if (session.get(player) + money > tmpval)
+        if (tmpval != -1 && session.get(player) + money > tmpval)
           money = session.get(player) + money - tmpval;
       }
     }
 
     db.put(player, GetMoney(player) + money);
+    if (day.containsKey(player))
+      day.put(player, day.get(player) + money);
+    if (session.containsKey(player))
+      day.put(player, session.get(player) + money);
+
     if ((Boolean) tgym.Settings._("Group." + group + ".InstantPayout", false))
       CashOut(player);
   }
