@@ -38,7 +38,7 @@ public class Language {
         + File.separator + "lang" + File.separator;
 
     try {
-      path = new File(partpath + tgym.Settings._("Language") + ".yml");
+      path = new File(partpath + tgym.Settings._("Language", "en-US") + ".yml");
       if (path.exists())
         file.load(path);
       else {
@@ -83,6 +83,7 @@ public class Language {
         "[Option] - Means that this option is optional for the command.");
 
     list.put("Command.Help.Help", "- Shows this help.");
+    list.put("Command.Help.Reload", "- Reloads the config.");
     list.put("Command.Help.Cashout.Self",
         "- Cash out your money to your bank account.");
     list.put("Command.Help.Cashout.Other",
@@ -92,16 +93,18 @@ public class Language {
     list.put("Command.Help.Remove",
         "<Player> <Money> - Remove cash from <Player>s TGYM account.");
 
+    list.put("Command.Reload.Success", "Reloaded successfully.");
+
     list.put("Command.Cashout.Success.Self",
         "Cashed out '%MONEY%' to your account.");
     list.put("Command.Cashout.Success.Other",
         "Cashed out '%MONEY%' to %PLAYER%s account.");
     list.put("Command.Cashout.Failed", "Failed to cashout the money.");
 
-    list.put("Command.Add.Success", "Added '%MONEY%' to %PLAYERS account.");
+    list.put("Command.Add.Success", "Added '%MONEY%' to %PLAYERS% account.");
 
     list.put("Command.Remove.Success",
-        "Removed '%MONEY%' from %PLAYERS account.");
+        "Removed '%MONEY%' from %PLAYERS% account.");
     for (final Entry<String, String> entry : list.entrySet())
       if (!file.contains(entry.getKey()))
         file.set(entry.getKey(), entry.getValue());

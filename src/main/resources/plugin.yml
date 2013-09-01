@@ -17,12 +17,17 @@ permissions:
     description: All TimeGivesYouMoney permissions
     default: op
     children:
+      tgym.reload: true
       tgym.cashout.self: true
       tgym.cashout.other: true
       tgym.add: true
       tgym.remove: true
       tgym.atm.use: true
       tgym.atm.create: true
+
+  tgym.reload:
+    description: Allows the player to reload the config
+    default: false
 
   tgym.cashout.self:
     description: Allows the player to cashout their own money

@@ -27,10 +27,15 @@ import me.wildn00b.timegivesyoumoney.io.Bank;
 import me.wildn00b.timegivesyoumoney.io.Language;
 import me.wildn00b.timegivesyoumoney.io.Settings;
 import me.wildn00b.timegivesyoumoney.io.Vault;
+import me.wildn00b.timegivesyoumoney.listener.BlockListener;
+import me.wildn00b.timegivesyoumoney.listener.PlayerListener;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class TimeGivesYouMoney extends JavaPlugin {
+
+  public static final int ONE_MINUTE_IN_TICKS = 20 * 60;
+  public static final int ONE_DAY_IN_TICKS = 20 * 60 * 60 * 24;
 
   public HashMap<String, Long> afkTimer = new HashMap<String, Long>();
 
@@ -45,7 +50,7 @@ public class TimeGivesYouMoney extends JavaPlugin {
 
   @Override
   public void onDisable() {
-    if ((Boolean) Settings._("SaveProgressOnShutdown"))
+    if ((Boolean) Settings._("SaveProgressOnShutdown", true))
       Bank.Save();
     Log.log(Level.INFO, Lang._("TimeGivesYouMoney.Disable"));
   }
@@ -68,9 +73,17 @@ public class TimeGivesYouMoney extends JavaPlugin {
     Version = getDescription().getVersion();
 
     getServer().getScheduler().scheduleSyncRepeatingTask(this,
-        new MoneyGiver(this), 0, 20 * 60);
+        new MoneyGiver(this), 0, ONE_MINUTE_IN_TICKS);
+
+    getServer().getScheduler().scheduleSyncRepeatingTask(this,
+        new ClearDay(this), 0, ONE_DAY_IN_TICKS);
 
     Log.log(Level.INFO, Lang._("TimeGivesYouMoney.Enable"));
+  }
+
+  public void Reload() {
+    Settings = new Settings(this);
+    Lang = new Language(this);
   }
 
 }

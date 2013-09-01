@@ -1,4 +1,6 @@
-package me.wildn00b.timegivesyoumoney;
+package me.wildn00b.timegivesyoumoney.listener;
+
+import me.wildn00b.timegivesyoumoney.TimeGivesYouMoney;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

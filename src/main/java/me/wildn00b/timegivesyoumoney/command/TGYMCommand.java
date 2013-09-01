@@ -43,7 +43,13 @@ public class TGYMCommand implements CommandExecutor {
 
     try {
       if (args.length == 1) {
-        if (args[0].equalsIgnoreCase("cashout")
+        if (args[0].equalsIgnoreCase("reload")
+            && p(sender, "tgym.reload")) {
+          tgym.Reload();
+          send(
+                sender,
+                tgym.Lang._("Command.Reload.Success"));
+        } else if (args[0].equalsIgnoreCase("cashout")
             && p(sender, "tgym.cashout.self")) {
           result = tgym.Bank.CashOut(((Player) sender).getName());
           if (result == -1)
@@ -78,22 +84,22 @@ public class TGYMCommand implements CommandExecutor {
           ShowHelp(sender, label, 1);
       } else if (args.length == 3) {
         if (args[0].equalsIgnoreCase("add")) {
-          tgym.Bank.Add(args[1], Double.parseDouble(args[2]));
+          tgym.Bank.Add(args[1], Double.parseDouble(args[2]), true);
           send(
               sender,
               tgym.Lang
-                  ._("Command.Add.Other.Success")
+                  ._("Command.Add.Success")
                   .replaceAll(
                       "%MONEY%",
                       args[2] + " "
                           + tgym.Vault.GetEconomy().currencyNamePlural())
                   .replaceAll("%PLAYER%", args[1]));
         } else if (args[0].equalsIgnoreCase("remove")) {
-          tgym.Bank.Add(args[1], Double.parseDouble(args[2]));
+          tgym.Bank.Remove(args[1], Double.parseDouble(args[2]));
           send(
               sender,
               tgym.Lang
-                  ._("Command.Remove.Other.Success")
+                  ._("Command.Remove.Success")
                   .replaceAll(
                       "%MONEY%",
                       args[2] + " "
@@ -137,6 +143,11 @@ public class TGYMCommand implements CommandExecutor {
         + tgym.Lang._("Command.Help.Help").replaceFirst("- ",
             ChatColor.DARK_AQUA + "-" + ChatColor.GOLD + " "));
 
+    if (p(sender, "tgym.reload", false))
+      cmds.add("cashout "
+          + tgym.Lang._("Command.Help.Reload").replaceFirst("- ",
+              ChatColor.DARK_AQUA + "-" + ChatColor.GOLD + " "));
+    
     if (p(sender, "tgym.cashout.self", false))
       cmds.add("cashout "
           + tgym.Lang._("Command.Help.Cashout.Self").replaceFirst("- ",

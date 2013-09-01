@@ -16,7 +16,9 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-package me.wildn00b.timegivesyoumoney;
+package me.wildn00b.timegivesyoumoney.listener;
+
+import me.wildn00b.timegivesyoumoney.TimeGivesYouMoney;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -109,10 +111,12 @@ public class PlayerListener implements Listener {
 
   @EventHandler(priority = EventPriority.MONITOR)
   public void onPlayerQuit(PlayerQuitEvent event) {
-    if (event.getPlayer() != null
-        && !tgym.Vault
-            .HasPermissions(event.getPlayer(), "SaveProgressOnLogout"))
-      tgym.afkTimer.remove(event.getPlayer().getName());
+    if (event.getPlayer() != null) {
+      if (!tgym.Vault.HasPermissions(event.getPlayer(), "SaveProgressOnLogout"))
+        tgym.afkTimer.remove(event.getPlayer().getName());
+      tgym.Bank.PlayerDisconnected(event.getPlayer().getName());
+    }
+
   }
 
   @EventHandler(priority = EventPriority.MONITOR)

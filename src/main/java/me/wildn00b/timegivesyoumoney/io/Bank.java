@@ -35,6 +35,8 @@ public class Bank {
 
   public static final int CURRENT_VERSION = 1;
   private HashMap<String, Double> db = new HashMap<String, Double>();
+  private HashMap<String, Double> day = new HashMap<String, Double>();
+  private HashMap<String, Double> session = new HashMap<String, Double>();
   private final File file;
   private final TimeGivesYouMoney tgym;
 
@@ -47,11 +49,45 @@ public class Bank {
     Load();
   }
 
-  public void Add(String player, double value) {
+  public void Add(String player, double value, boolean force) {
     final String group = tgym.Vault
         .GetGroup(tgym.getServer().getPlayer(player));
-    db.put(player, GetMoney(player) + value);
-    if ((Boolean) tgym.Settings._("Group." + group + ".InstantPayout"))
+    double money = value;
+    Object tmpobj;
+    double tmpval;
+
+    if (!force) {
+      if (day.containsKey(player)) {
+        tmpobj = tgym.Settings._(
+            "Group." + tgym.Vault.GetGroup(tgym.getServer().getPlayer(player))
+                + ".MaxMoneyEarnPerDay", (double) -1);
+
+        if (tmpobj instanceof Integer)
+          tmpval = ((Integer) tmpobj).doubleValue();
+        else
+          tmpval = (Double) tmpobj;
+
+        if (day.get(player) + money > tmpval)
+          money = day.get(player) + money - tmpval;
+      }
+
+      if (session.containsKey(player)) {
+        tmpobj = tgym.Settings._(
+            "Group." + tgym.Vault.GetGroup(tgym.getServer().getPlayer(player))
+                + ".MaxMoneyEarnPerSession", (double) -1);
+
+        if (tmpobj instanceof Integer)
+          tmpval = ((Integer) tmpobj).doubleValue();
+        else
+          tmpval = (Double) tmpobj;
+
+        if (session.get(player) + money > tmpval)
+          money = session.get(player) + money - tmpval;
+      }
+    }
+
+    db.put(player, GetMoney(player) + money);
+    if ((Boolean) tgym.Settings._("Group." + group + ".InstantPayout", false))
       CashOut(player);
   }
 
@@ -134,4 +170,12 @@ public class Bank {
     }
   }
 
+  public void PlayerDisconnected(String player) {
+    if (session.containsKey(player))
+      session.remove(player);
+  }
+
+  public void ClearDay() {
+    day.clear();
+  }
 }

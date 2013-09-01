@@ -51,7 +51,9 @@ public class Settings {
     }
   }
 
-  public Object _(String path) {
+  public Object _(String path, Object value) {
+    if (!file.contains(path))
+      file.set(path, value);
     return file.get(path);
   }
 
@@ -76,17 +78,21 @@ public class Settings {
   private void addDefaults() {
     final HashMap<String, Object> list = new HashMap<String, Object>();
 
-    list.put("SettingsVersion", 1);
+    list.put("SettingsVersion", 2);
     list.put("Language", "en-US");
+
     list.put("SaveProgressOnLogout", true);
     list.put("SaveProgressOnShutdown", true);
 
     list.put("Group.Default.AFKTimeout", (double) 5);
     list.put("Group.Default.MoneyPerMinute", (double) 2);
     list.put("Group.Default.InstantPayout", false);
+    list.put("Group.Default.MaxMoneyEarnPerDay", (double) 20000);
+    list.put("Group.Default.MaxMoneyEarnPerSession", (double) 10000);
 
     for (final Entry<String, Object> entry : list.entrySet())
-      if (!file.contains(entry.getKey()))
+      if (!file.contains(entry.getKey()) || file.equals("SettingsVersion"))
         file.set(entry.getKey(), entry.getValue());
+
   }
 }

@@ -37,22 +37,25 @@ public class MoneyGiver implements Runnable {
       final String group = tgym.Vault.GetGroup(tgym.getServer().getPlayer(
           player.getKey()));
 
+      Object val = tgym.Settings._("Group." + group + ".AFKTimeout",
+          (double) -1);
+
       double timeout = -1;
-      if (tgym.Settings._("Group." + group + ".AFKTimeout") instanceof Integer)
-        timeout = ((Integer) tgym.Settings._("Group." + group + ".AFKTimeout"))
-            .doubleValue();
+      if (val instanceof Integer)
+        timeout = ((Integer) val).doubleValue();
       else
-        timeout = (Double) tgym.Settings._("Group." + group + ".AFKTimeout");
+        timeout = (Double) val;
+
+      val = tgym.Settings._("Group." + group + ".MoneyPerMinute", (double) -1);
 
       double money = -1;
-      if (tgym.Settings._("Group." + group + ".MoneyPerMinute") instanceof Integer)
-        money = ((Integer) tgym.Settings
-            ._("Group." + group + ".MoneyPerMinute")).doubleValue();
+      if (val instanceof Integer)
+        money = ((Integer) val).doubleValue();
       else
-        money = (Double) tgym.Settings._("Group." + group + ".MoneyPerMinute");
+        money = (Double) val;
 
       if ((timeout != -1 || player.getValue() - System.currentTimeMillis() > timeout * 1000 * 60))
-        tgym.Bank.Add(player.getKey(), money);
+        tgym.Bank.Add(player.getKey(), money, false);
     }
   }
 
