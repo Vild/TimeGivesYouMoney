@@ -34,8 +34,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class TimeGivesYouMoney extends JavaPlugin {
 
-  public static final int ONE_MINUTE_IN_TICKS = 20 * 60;
   public static final int ONE_DAY_IN_TICKS = 20 * 60 * 60 * 24;
+  public static final int ONE_MINUTE_IN_TICKS = 20 * 60;
 
   public HashMap<String, Long> afkTimer = new HashMap<String, Long>();
 

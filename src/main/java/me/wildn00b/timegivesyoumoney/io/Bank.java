@@ -34,10 +34,10 @@ import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 public class Bank {
 
   public static final int CURRENT_VERSION = 1;
+  private final HashMap<String, Double> day = new HashMap<String, Double>();
   private HashMap<String, Double> db = new HashMap<String, Double>();
-  private HashMap<String, Double> day = new HashMap<String, Double>();
-  private HashMap<String, Double> session = new HashMap<String, Double>();
   private final File file;
+  private final HashMap<String, Double> session = new HashMap<String, Double>();
   private final TimeGivesYouMoney tgym;
 
   public Bank(TimeGivesYouMoney tgym) {
@@ -108,6 +108,10 @@ public class Bank {
     return er.amount;
   }
 
+  public void ClearDay() {
+    day.clear();
+  }
+
   public double GetMoney(String player) {
     try {
       return db.get(player);
@@ -140,6 +144,11 @@ public class Bank {
     }
   }
 
+  public void PlayerDisconnected(String player) {
+    if (session.containsKey(player))
+      session.remove(player);
+  }
+
   public boolean Remove(String player, double value) {
     if (GetMoney(player) >= value) {
       db.put(player, GetMoney(player) - value);
@@ -168,14 +177,5 @@ public class Bank {
     } catch (final Exception e) {
       e.printStackTrace();
     }
-  }
-
-  public void PlayerDisconnected(String player) {
-    if (session.containsKey(player))
-      session.remove(player);
-  }
-
-  public void ClearDay() {
-    day.clear();
   }
 }

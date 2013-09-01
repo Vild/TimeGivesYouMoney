@@ -43,12 +43,9 @@ public class TGYMCommand implements CommandExecutor {
 
     try {
       if (args.length == 1) {
-        if (args[0].equalsIgnoreCase("reload")
-            && p(sender, "tgym.reload")) {
+        if (args[0].equalsIgnoreCase("reload") && p(sender, "tgym.reload")) {
           tgym.Reload();
-          send(
-                sender,
-                tgym.Lang._("Command.Reload.Success"));
+          send(sender, tgym.Lang._("Command.Reload.Success"));
         } else if (args[0].equalsIgnoreCase("cashout")
             && p(sender, "tgym.cashout.self")) {
           result = tgym.Bank.CashOut(((Player) sender).getName());
@@ -147,7 +144,7 @@ public class TGYMCommand implements CommandExecutor {
       cmds.add("cashout "
           + tgym.Lang._("Command.Help.Reload").replaceFirst("- ",
               ChatColor.DARK_AQUA + "-" + ChatColor.GOLD + " "));
-    
+
     if (p(sender, "tgym.cashout.self", false))
       cmds.add("cashout "
           + tgym.Lang._("Command.Help.Cashout.Self").replaceFirst("- ",
