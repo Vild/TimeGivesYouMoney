@@ -21,6 +21,7 @@ package me.wildn00b.timegivesyoumoney.io;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
@@ -128,9 +129,9 @@ public class Bank {
   public void Load() {
     String player;
     double value;
+    ObjectInputStream in = null;
     try {
-      final ObjectInputStream in = new ObjectInputStream(new FileInputStream(
-          file));
+      in = new ObjectInputStream(new FileInputStream(file));
       final int version = in.readInt();
       if (version != CURRENT_VERSION)
         throw new Exception("");
@@ -146,6 +147,11 @@ public class Bank {
 
       in.close();
     } catch (final Exception e) {
+    } finally {
+      try {
+        in.close();
+      } catch (IOException e) {
+      }
     }
   }
 

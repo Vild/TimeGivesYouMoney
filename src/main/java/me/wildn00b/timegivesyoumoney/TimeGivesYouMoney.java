@@ -29,7 +29,6 @@ import me.wildn00b.timegivesyoumoney.io.Settings;
 import me.wildn00b.timegivesyoumoney.io.Vault;
 import me.wildn00b.timegivesyoumoney.listener.BlockListener;
 import me.wildn00b.timegivesyoumoney.listener.PlayerListener;
-import me.wildn00b.timegivesyoumoney.Metrics;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -80,10 +79,10 @@ public class TimeGivesYouMoney extends JavaPlugin {
         new ClearDay(this), 0, ONE_DAY_IN_TICKS);
 
     try {
-      Metrics metrics = new Metrics(this);
+      final Metrics metrics = new Metrics(this);
       metrics.findCustomData();
       metrics.start();
-    } catch (Exception e) {
+    } catch (final Exception e) {
     }
 
     Log.log(Level.INFO, Lang._("TimeGivesYouMoney.Enable"));
