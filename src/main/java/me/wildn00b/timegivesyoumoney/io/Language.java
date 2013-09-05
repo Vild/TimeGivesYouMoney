@@ -93,10 +93,12 @@ public class Language {
 
     list.put("Command.Reload.Success", "Reloaded successfully.");
 
-    list.put("Command.Cashout.Success.Self",
-        "Cashed out '%MONEY%' to your account.");
-    list.put("Command.Cashout.Success.Other",
-        "Cashed out '%MONEY%' to %PLAYER%s account.");
+    list.put(
+        "Command.Cashout.Success.Self",
+        "Cashed out '%MONEY%' to your account. You earn that for playing for %TIME% minutes.");
+    list.put(
+        "Command.Cashout.Success.Other",
+        "Cashed out '%MONEY%' to %PLAYER%s account. %PLAYER% earn that for playing for %TIME% minutes.");
     list.put("Command.Cashout.Failed", "Failed to cashout the money.");
 
     list.put("Command.Add.Success", "Added '%MONEY%' to %PLAYERS% account.");

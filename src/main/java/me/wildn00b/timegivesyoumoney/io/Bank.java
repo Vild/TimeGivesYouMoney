@@ -150,7 +150,7 @@ public class Bank {
     } finally {
       try {
         in.close();
-      } catch (IOException e) {
+      } catch (final IOException e) {
       }
     }
   }

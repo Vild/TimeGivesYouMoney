@@ -51,12 +51,32 @@ public class TGYMCommand implements CommandExecutor {
           result = tgym.Bank.CashOut(((Player) sender).getName());
           if (result == -1)
             send(sender, tgym.Lang._("Command.Cashout.Failed"));
-          else
+          else if (tgym.getServer().getPlayer(args[1]) == null)
+            send(sender, tgym.Lang._("Command.Cashout.Failed"));
+          else {
+            final Object val = tgym.Settings._(
+                "Group."
+                    + tgym.Vault.GetGroup(tgym.getServer().getPlayer(
+                        sender.getName())) + ".MoneyPerMinute", (double) -1);
+
+            double mps = -1;
+            if (val instanceof Integer)
+              mps = ((Integer) val).doubleValue();
+            else
+              mps = (Double) val;
+            if (mps == -1)
+              mps = 1;
+
             send(
                 sender,
-                tgym.Lang._("Command.Cashout.Success.Self").replaceAll(
-                    "%MONEY%",
-                    result + tgym.Vault.GetEconomy().currencyNamePlural()));
+                tgym.Lang
+                    ._("Command.Cashout.Success.Self")
+                    .replaceAll(
+                        "%MONEY%",
+                        result + " "
+                            + tgym.Vault.GetEconomy().currencyNamePlural())
+                    .replaceAll("%TIME%", (result / mps) + ""));
+          }
         } else
           ShowHelp(sender, label, 1);
       } else if (args.length == 2) {
@@ -65,9 +85,22 @@ public class TGYMCommand implements CommandExecutor {
         else if (args[0].equalsIgnoreCase("cashout")
             && p(sender, "tgym.cashout.other")) {
           result = tgym.Bank.CashOut(args[1]);
-          if (result == -1)
+          if (result == -1 || tgym.getServer().getPlayer(args[1]) == null)
             send(sender, tgym.Lang._("Command.Cashout.Failed"));
-          else
+          else {
+            final Object val = tgym.Settings._(
+                "Group."
+                    + tgym.Vault.GetGroup(tgym.getServer().getPlayer(args[1]))
+                    + ".MoneyPerMinute", (double) -1);
+
+            double mps = -1;
+            if (val instanceof Integer)
+              mps = ((Integer) val).doubleValue();
+            else
+              mps = (Double) val;
+            if (mps == -1)
+              mps = 1;
+
             send(
                 sender,
                 tgym.Lang
@@ -76,7 +109,9 @@ public class TGYMCommand implements CommandExecutor {
                         "%MONEY%",
                         result + " "
                             + tgym.Vault.GetEconomy().currencyNamePlural())
-                    .replaceAll("%PLAYER%", args[1]));
+                    .replaceAll("%PLAYER%", args[1])
+                    .replaceAll("%TIME%", (result / mps) + ""));
+          }
         } else
           ShowHelp(sender, label, 1);
       } else if (args.length == 3) {

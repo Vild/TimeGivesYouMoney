@@ -57,24 +57,6 @@ public class Settings {
     return file.get(path);
   }
 
-  public ArrayList<String> GetAvailableGroups() {
-    final ArrayList<String> output = new ArrayList<String>();
-
-    for (final String group : file.getConfigurationSection("Group").getKeys(
-        false))
-      output.add(group);
-
-    return output;
-  }
-
-  public void Set(String path, Object value) {
-    file.set(path, value);
-    try {
-      file.save(path);
-    } catch (final IOException e) {
-    }
-  }
-
   private void addDefaults() {
     final HashMap<String, Object> list = new HashMap<String, Object>();
 
@@ -94,5 +76,23 @@ public class Settings {
       if (!file.contains(entry.getKey()) || file.equals("SettingsVersion"))
         file.set(entry.getKey(), entry.getValue());
 
+  }
+
+  public ArrayList<String> GetAvailableGroups() {
+    final ArrayList<String> output = new ArrayList<String>();
+
+    for (final String group : file.getConfigurationSection("Group").getKeys(
+        false))
+      output.add(group);
+
+    return output;
+  }
+
+  public void Set(String path, Object value) {
+    file.set(path, value);
+    try {
+      file.save(path);
+    } catch (final IOException e) {
+    }
   }
 }
