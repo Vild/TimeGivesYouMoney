@@ -46,8 +46,6 @@ public class Language {
             .log(Level.WARNING,
                 "[TimeGivesYouMoney] Couldn't find language file, reverting to en-US");
         path = new File(partpath + "en-US.yml");
-        if (path.exists())
-          file.load(path);
       }
       addDefaults();
       file.save(path);
