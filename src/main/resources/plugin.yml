@@ -18,6 +18,8 @@ permissions:
     default: op
     children:
       tgym.reload: true
+      tgym.stats.self: true
+      tgym.stats.other: true
       tgym.cashout.self: true
       tgym.cashout.other: true
       tgym.add: true
