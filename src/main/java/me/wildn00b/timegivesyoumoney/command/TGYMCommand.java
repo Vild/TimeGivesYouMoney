@@ -47,7 +47,7 @@ public class TGYMCommand implements CommandExecutor {
           tgym.Reload();
           send(sender, tgym.Lang._("Command.Reload.Success"));
         } else if (args[0].equalsIgnoreCase("cashout")
-            && p(sender, "tgym.cashout.self")) {
+            && p(sender, "tgym.cashout.self", false)) {
           result = tgym.Bank.CashOut(((Player) sender).getName());
           if (result == -1)
             send(sender, tgym.Lang._("Command.Cashout.Failed"));
@@ -78,12 +78,10 @@ public class TGYMCommand implements CommandExecutor {
                     .replaceAll("%TIME%", (result / mps) + ""));
           }
         } else if (args[0].equalsIgnoreCase("stats")
-            && p(sender, "tgym.stats.self")) {
-
+            && p(sender, "tgym.stats.self", false)) {
           final Object val = tgym.Settings._(
-              "Group."
-                  + tgym.Vault.GetGroup(tgym.getServer().getPlayer(
-                      sender.getName())) + ".MoneyPerMinute", (double) -1);
+              "Group." + tgym.Vault.GetGroup(((Player) sender))
+                  + ".MoneyPerMinute", (double) -1);
 
           double mps = -1;
           if (val instanceof Integer)
@@ -92,13 +90,14 @@ public class TGYMCommand implements CommandExecutor {
             mps = (Double) val;
           if (mps == -1)
             mps = 1;
+
           send(
               sender,
               tgym.Lang
                   ._("Command.Stats.Self")
                   .replaceAll(
                       "%MONEY%",
-                      tgym.Bank.GetMoney(args[1]) + " "
+                      tgym.Bank.GetMoney(((Player) sender).getName()) + " "
                           + tgym.Vault.GetEconomy().currencyNamePlural())
                   .replaceAll("%TIME%", (result / mps) + ""));
         } else
@@ -166,7 +165,7 @@ public class TGYMCommand implements CommandExecutor {
         } else
           ShowHelp(sender, label, 1);
       } else if (args.length == 3) {
-        if (args[0].equalsIgnoreCase("add")) {
+        if (args[0].equalsIgnoreCase("add") && p(sender, "tgym.add")) {
           tgym.Bank.Add(args[1], Double.parseDouble(args[2]), true);
           send(
               sender,
@@ -177,7 +176,8 @@ public class TGYMCommand implements CommandExecutor {
                       args[2] + " "
                           + tgym.Vault.GetEconomy().currencyNamePlural())
                   .replaceAll("%PLAYER%", args[1]));
-        } else if (args[0].equalsIgnoreCase("remove")) {
+        } else if (args[0].equalsIgnoreCase("remove")
+            && p(sender, "tgym.remove")) {
           tgym.Bank.Remove(args[1], Double.parseDouble(args[2]));
           send(
               sender,
@@ -227,7 +227,7 @@ public class TGYMCommand implements CommandExecutor {
             ChatColor.DARK_AQUA + "-" + ChatColor.GOLD + " "));
 
     if (p(sender, "tgym.reload"))
-      cmds.add("cashout "
+      cmds.add("reload "
           + tgym.Lang._("Command.Help.Reload").replaceFirst("- ",
               ChatColor.DARK_AQUA + "-" + ChatColor.GOLD + " "));
 
