@@ -80,8 +80,14 @@ public class Language {
     list.put("Command.Optional",
         "[Option] - Means that this option is optional for the command.");
 
+    list.put("Command.FindNoPlayer", "Couldn't find %PLAYER%");
+
     list.put("Command.Help.Help", "- Shows this help.");
     list.put("Command.Help.Reload", "- Reloads the config.");
+    list.put("Command.Help.Stats.Self",
+        "- Shows how much money you haven't cashout yet.");
+    list.put("Command.Help.Stats.Other",
+        "[Player] - Shows how much money [Player] haven't cashout yet.");
     list.put("Command.Help.Cashout.Self",
         "- Cash out your money to your bank account.");
     list.put("Command.Help.Cashout.Other",
@@ -99,6 +105,12 @@ public class Language {
     list.put(
         "Command.Cashout.Success.Other",
         "Cashed out '%MONEY%' to %PLAYER%s account. %PLAYER% earn that for playing for %TIME% minutes.");
+
+    list.put("Command.Stats.Self",
+        "You got %MONEY% for playing for %TIME% minutes.");
+    list.put("Command.Stats.Other",
+        "%PLAYER% got %MONEY% for playing for %TIME% minutes.");
+
     list.put("Command.Cashout.Failed", "Failed to cashout the money.");
 
     list.put("Command.Add.Success", "Added '%MONEY%' to %PLAYERS% account.");

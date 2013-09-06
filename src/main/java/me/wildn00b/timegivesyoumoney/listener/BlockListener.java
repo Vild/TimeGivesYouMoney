@@ -86,10 +86,9 @@ public class BlockListener implements Listener {
   @EventHandler(priority = EventPriority.HIGHEST)
   public void onSignChange(SignChangeEvent event) {
     if (event.getLine(0).equalsIgnoreCase("[ATM]")
-        && tgym.Vault.HasPermissions(event.getPlayer(), "tgym.atm.create")) {
+        && tgym.Vault.HasPermissions(event.getPlayer(), "tgym.atm.create"))
       event.setLine(0, "" + ChatColor.GRAY + ChatColor.BOLD + "["
           + ChatColor.YELLOW + "ATM" + ChatColor.GRAY + "]");
-    }
   }
 
   private boolean testSign(Player player, Block block) {

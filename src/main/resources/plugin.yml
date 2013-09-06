@@ -28,7 +28,12 @@ permissions:
   tgym.reload:
     description: Allows the player to reload the config
     default: false
-
+  tgym.stats.self:
+    description: Allows the player to check their stats
+    default: false
+  tgym.stats.other:
+    description: Allows the player to check others stats
+    default: false
   tgym.cashout.self:
     description: Allows the player to cashout their own money
     default: false
