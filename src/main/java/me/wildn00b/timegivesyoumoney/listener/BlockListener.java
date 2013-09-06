@@ -37,13 +37,7 @@ public class BlockListener implements Listener {
 
       if (sign.getLine(0).equals(
           "" + ChatColor.GRAY + ChatColor.BOLD + "[" + ChatColor.YELLOW + "ATM"
-              + ChatColor.GRAY + "]" + ChatColor.GRAY + ChatColor.BOLD)
-          && sign.getLine(1).equals(
-              "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD)
-          && sign.getLine(2).equals(
-              "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD)
-          && sign.getLine(3).equals(
-              "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD)
+              + ChatColor.GRAY + "]")
           && !tgym.Vault.HasPermissions(event.getPlayer(), "tgym.atm.create"))
         event.setCancelled(true);
     }
@@ -60,13 +54,7 @@ public class BlockListener implements Listener {
 
       if (sign.getLine(0).equals(
           "" + ChatColor.GRAY + ChatColor.BOLD + "[" + ChatColor.YELLOW + "ATM"
-              + ChatColor.GRAY + "]" + ChatColor.GRAY + ChatColor.BOLD)
-          && sign.getLine(1).equals(
-              "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD)
-          && sign.getLine(2).equals(
-              "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD)
-          && sign.getLine(3).equals(
-              "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD)
+              + ChatColor.GRAY + "]")
           && !tgym.Vault.HasPermissions(event.getPlayer(), "tgym.atm.create"))
         event.setCancelled(true);
     }
@@ -100,11 +88,7 @@ public class BlockListener implements Listener {
     if (event.getLine(0).equalsIgnoreCase("[ATM]")
         && tgym.Vault.HasPermissions(event.getPlayer(), "tgym.atm.create")) {
       event.setLine(0, "" + ChatColor.GRAY + ChatColor.BOLD + "["
-          + ChatColor.YELLOW + "ATM" + ChatColor.GRAY + "]" + ChatColor.GRAY
-          + ChatColor.BOLD);
-      event.setLine(1, "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD);
-      event.setLine(2, "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD);
-      event.setLine(3, "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD);
+          + ChatColor.YELLOW + "ATM" + ChatColor.GRAY + "]");
     }
   }
 
@@ -117,13 +101,7 @@ public class BlockListener implements Listener {
     if (sign != null)
       if (sign.getLine(0).equals(
           "" + ChatColor.GRAY + ChatColor.BOLD + "[" + ChatColor.YELLOW + "ATM"
-              + ChatColor.GRAY + "]" + ChatColor.GRAY + ChatColor.BOLD)
-          && sign.getLine(1).equals(
-              "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD)
-          && sign.getLine(2).equals(
-              "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD)
-          && sign.getLine(3).equals(
-              "" + ChatColor.STRIKETHROUGH + ChatColor.BOLD)) {
+              + ChatColor.GRAY + "]")) {
         if (tgym.Vault.HasPermissions(player, "tgym.atm.use")) {
           final double result = tgym.Bank.CashOut(player.getName());
           player.sendMessage(ChatColor.YELLOW

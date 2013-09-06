@@ -180,6 +180,11 @@ public class TGYMCommand implements CommandExecutor {
           + tgym.Lang._("Command.Help.Reload").replaceFirst("- ",
               ChatColor.DARK_AQUA + "-" + ChatColor.GOLD + " "));
 
+    if (p(sender, "tgym.stats", false))
+      cmds.add("stats "
+          + tgym.Lang._("Command.Help.Stats").replaceFirst("- ",
+              ChatColor.DARK_AQUA + "-" + ChatColor.GOLD + " "));
+    
     if (p(sender, "tgym.cashout.self", false))
       cmds.add("cashout "
           + tgym.Lang._("Command.Help.Cashout.Self").replaceFirst("- ",
