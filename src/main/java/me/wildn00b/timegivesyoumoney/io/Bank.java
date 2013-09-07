@@ -145,12 +145,11 @@ public class Bank {
         db.put(player, value);
       }
 
-      in.close();
     } catch (final Exception e) {
     } finally {
       try {
         in.close();
-      } catch (final IOException e) {
+      } catch (final Exception e) {
       }
     }
   }
