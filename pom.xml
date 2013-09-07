@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>me.wildn00b</groupId>
 	<artifactId>timegivesyoumoney</artifactId>
-	<version>1.2.0</version>
+	<version>1.2.1</version>
 	<name>TimeGivesYouMoney</name>
 	<description>Gives players money every minute</description>
 	<url>http://dev.bukkit.org/server-mods/TimeGivesYouMoney/</url>
