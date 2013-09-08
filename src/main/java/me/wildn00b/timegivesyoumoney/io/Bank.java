@@ -21,7 +21,6 @@ package me.wildn00b.timegivesyoumoney.io;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
@@ -58,33 +57,35 @@ public class Bank {
     double tmpval;
 
     if (!force) {
+      tmpobj = tgym.Settings._(
+          "Group." + tgym.Vault.GetGroup(tgym.getServer().getPlayer(player))
+              + ".MaxMoneyEarnPerDay", (double) -1);
+
+      if (tmpobj instanceof Integer)
+        tmpval = ((Integer) tmpobj).doubleValue();
+      else
+        tmpval = (Double) tmpobj;
+
       if (day.containsKey(player)) {
-        tmpobj = tgym.Settings._(
-            "Group." + tgym.Vault.GetGroup(tgym.getServer().getPlayer(player))
-                + ".MaxMoneyEarnPerDay", (double) -1);
-
-        if (tmpobj instanceof Integer)
-          tmpval = ((Integer) tmpobj).doubleValue();
-        else
-          tmpval = (Double) tmpobj;
-
         if (tmpval != -1 && day.get(player) + money > tmpval)
           money = day.get(player) + money - tmpval;
-      }
+      } else if (tmpval != -1 && money > tmpval)
+        money = money - tmpval;
+
+      tmpobj = tgym.Settings._(
+          "Group." + tgym.Vault.GetGroup(tgym.getServer().getPlayer(player))
+              + ".MaxMoneyEarnPerSession", (double) -1);
+
+      if (tmpobj instanceof Integer)
+        tmpval = ((Integer) tmpobj).doubleValue();
+      else
+        tmpval = (Double) tmpobj;
 
       if (session.containsKey(player)) {
-        tmpobj = tgym.Settings._(
-            "Group." + tgym.Vault.GetGroup(tgym.getServer().getPlayer(player))
-                + ".MaxMoneyEarnPerSession", (double) -1);
-
-        if (tmpobj instanceof Integer)
-          tmpval = ((Integer) tmpobj).doubleValue();
-        else
-          tmpval = (Double) tmpobj;
-
         if (tmpval != -1 && session.get(player) + money > tmpval)
           money = session.get(player) + money - tmpval;
-      }
+      } else if (tmpval != -1 && money > tmpval)
+        money = money - tmpval;
     }
 
     db.put(player, GetMoney(player) + money);

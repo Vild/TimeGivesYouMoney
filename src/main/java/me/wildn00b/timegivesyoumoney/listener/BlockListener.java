@@ -103,12 +103,27 @@ public class BlockListener implements Listener {
               + ChatColor.GRAY + "]")) {
         if (tgym.Vault.HasPermissions(player, "tgym.atm.use")) {
           final double result = tgym.Bank.CashOut(player.getName());
+          final Object val = tgym.Settings._(
+              "Group."
+                  + tgym.Vault.GetGroup(tgym.getServer().getPlayer(
+                      player.getName())) + ".MoneyPerMinute", (double) -1);
+
+          double mps = -1;
+          if (val instanceof Integer)
+            mps = ((Integer) val).doubleValue();
+          else
+            mps = (Double) val;
+          if (mps == -1)
+            mps = 1;
+
           player.sendMessage(ChatColor.YELLOW
               + "[TimeGivesYouMoney] "
               + ChatColor.GOLD
-              + tgym.Lang._("Command.Cashout.Success.Self").replaceAll(
-                  "%MONEY%",
-                  result + tgym.Vault.GetEconomy().currencyNamePlural()));
+              + tgym.Lang
+                  ._("Command.Cashout.Success.Self")
+                  .replaceAll("%MONEY%",
+                      result + tgym.Vault.GetEconomy().currencyNamePlural())
+                  .replaceAll("%TIME%", (result / mps) + ""));
         }
         return true;
       }
